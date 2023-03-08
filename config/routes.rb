@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   # Routes for the Like resource:
+  get("/", { :controller => "user_authentication", :action => "index" })
 
   # CREATE
   post("/insert_like", { :controller => "likes", :action => "create" })
@@ -57,7 +58,8 @@ Rails.application.routes.draw do
   #------------------------------
 
   # Routes for the User account:
-
+  get("/user_sign_up", { :controller => "user_authentication", :action => "sign_up_form" })
+  
   # SIGN UP FORM
   get("/user_sign_up", { :controller => "user_authentication", :action => "sign_up_form" })        
   # CREATE RECORD
