@@ -1,0 +1,46 @@
+<h1><%= @user.username %></h1>
+
+<dl>
+  <dt>ID</dt>
+  <dd><%= @user.id %></dd>
+
+  <dt>Edit user</dt>
+  <dd>
+    <form action="/update_user/<%= @user.id %>" >
+      <label for="browser_username">Username</label>
+      <input id="browser_username" type="text" name="input_username" placeholder="Enter a username..." value="<%= @user.username %>">
+
+      <button>Update user</button>
+    </form>
+  </dd>
+</dl>
+
+<%# UNCOMMENT BOTTOM LINE LATER %>
+<%# <h2>Own photos (<%= @user.own_photos.count %>) <%#</h2> %>
+
+<table border="1">
+  <tr>
+    <th>
+      Image
+    </th>
+
+    <th>
+      Owner
+    </th>
+
+    <th>
+      Caption
+    </th>
+
+    <th>
+      Posted
+    </th>
+
+    <th></th>
+  </tr>
+
+
+<%# ADD CODE FROM OLD PHOTOGRAM SHOW.HTML %>
+  
+
+</table>

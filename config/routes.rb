@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   # Routes for the Like resource:
+  ## Added by me
   get("/", { :controller => "user_authentication", :action => "index" })
 
   # CREATE
@@ -20,6 +21,9 @@ Rails.application.routes.draw do
   #------------------------------
 
   # Routes for the Follow request resource:
+  ## Added by me:
+  # get("/users/:username", {:controller => "user_authentication", :action => "show"})
+  get("/users/:the_username", {:controller => "user_authentication", :action => "show"})
 
   # CREATE
   post("/insert_follow_request", { :controller => "follow_requests", :action => "create" })
