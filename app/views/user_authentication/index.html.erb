@@ -3,13 +3,14 @@
 <% if session.fetch(:user_id) == nil %>
 <table border="1">
     <tr>
-      <th>
-        ID
-      </th>
 
       <th>
         Username
       </th>
+
+      <td>
+          Private?
+        </td>
 
       <th></th>
 
@@ -18,11 +19,15 @@
     <% @users.each do |user| %>
       <tr>
         <td>
-          <%= user.id %>
+          <% if user.private == true %>
+            Yes
+          <% else %>
+            No
+          <% end %>
         </td>
 
         <td>
-          <%= user.username %>
+          <%= user.private %>
         </td>
 
         <td>
@@ -36,12 +41,13 @@
 <% else %>
   <table border="1">
     <tr>
-      <th>
-        ID
-      </th>
 
       <th>
         Username
+      </th>
+
+      <th>
+        Private?
       </th>
 
       <th></th>
@@ -53,15 +59,19 @@
     <% @users.each do |user| %>
       <tr>
         <td>
-          <%= user.id %>
-        </td>
-
-        <td>
           <%= user.username %>
         </td>
 
         <td>
-          Follow - UPDATE
+          <% if user.private == true %>
+            Yes
+          <% else %>
+            No
+          <% end %>
+        </td>
+
+        <td>
+          Follow
         </td>
 
         <td>

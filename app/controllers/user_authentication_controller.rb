@@ -14,10 +14,16 @@ class UserAuthenticationController < ApplicationController
     @user = User.where({ :username => the_username }).at(0)
     @current_user = session.fetch(:user_id)
 
-    matching_follow_requests = FollowRequest.where({ :recipient_id => @user.id, :sender_id => @current_user })
-    @the_follow_request = matching_follow_requests.at(0)
+    all_follow_requests = FollowRequest.where({:recipient_id => @user.id, :status => "TRUE"})
+    @follower_count = all_follow_requests.count
 
-    
+    all_following_requests = FollowRequest.where({:sender_id => @user.id, :status => "TRUE"})
+    @following_count = all_following_requests.count
+
+    @matching_follow_requests = FollowRequest.where({ :recipient_id => @user.id, :sender_id => @signed_in_user, :status => "TRUE"})
+
+    @the_follow_request = @matching_follow_requests.at(0)
+
     render({ :template => "user_authentication/show.html.erb" })
   end
 

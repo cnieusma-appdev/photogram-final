@@ -5,7 +5,7 @@
   <dd><%= @user.private %></dd>
 
   <dt>Followers</dt>
-  <dd> (temp placeholder!!!) </dd>
+  <dd> <%= @follower_count =%> </dd> </dd>
 
   <% if @user.id == @current_user %>
 
@@ -28,10 +28,12 @@
   <p> </p>
 
   <dt>Following</dt>
-  <dd> (temp placeholder!!!) </dd>
+  <dd> <%= @following_count =%> </dd>
 
   <dt>Edit user</dt>
   <dd>
+    
+    <% if @user.id == @current_user %>    
     <form action="/update_user/<%= @user.id %>" >
 
       <label for="browser_username">Username</label>
@@ -43,6 +45,8 @@
 
       <button>Update user</button>
     </form>
+    <% end %>
+  
   </dd>
 </dl>
 

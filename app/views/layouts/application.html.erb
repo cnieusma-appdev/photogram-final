@@ -15,20 +15,40 @@
   </head>
 
   <body>
-    <ul>
-      <li>
-        <a href="/users"> All users </a>
-      </li>
-      <li>
-        <a href="/photos"> All public photos </a>
-      </li>
-      <li>
-        <a href="/user_sign_in"> Sign In - FIX LATER </a>
-      </li>
-      <li>
-        <a href="/user_sign_out"> Sign Out </a>
-      </li>
-    </ul>
+    <% if session.fetch(:user_id) == nil %>
+       <ul>
+        <li>
+          <a href="/users"> All users </a>
+        </li>
+        <li>
+          <a href="/photos"> All public photos </a>
+        </li>
+        <li>
+          <a href="/user_sign_in"> Sign In </a>
+        </li>
+        <li>
+          <a href="/user_sign_up"> Sign Up </a>
+        </li>
+      </ul>
+
+
+    <% else %>
+      <ul>
+        <li>
+          <a href="/users"> All users </a>
+        </li>
+        <li>
+          <a href="/photos"> All public photos </a>
+        </li>
+        <li>
+         <a href="/users/<%=User.where({:id => session.fetch(:user_id)}).at(0).username%>"> <%=User.where({:id => session.fetch(:user_id)}).at(0).username%> </a>
+        </li>
+        <li>
+          <a href="/user_sign_out"> Sign Out </a>
+        </li>
+      </ul>
+    <% end %>
+
 
     <% if notice.present?%>
     <div>
