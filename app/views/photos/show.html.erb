@@ -23,7 +23,6 @@
         Image
       </dt>
       <dd>
-        
         <img src="<%= @the_photo.image %>" class="img-responsive">
       </dd>
 
@@ -75,6 +74,16 @@
       <dd>
         <%= time_ago_in_words(@the_photo.updated_at) %> ago
       </dd>
+      
+      <% if session.fetch(:user_id) == @the_photo.owner_id %>
+      <dt>
+        Delete photo
+      </dt>
+      <a href="/delete_photo/<%= @the_photo.id %>">
+        Delete this photo
+      </a>
+      <% end %>
+
     </dl>
   </div>
 </div>
