@@ -7,6 +7,20 @@
   <dt>Followers</dt>
   <dd> (temp placeholder!!!) </dd>
 
+  <% if @user.id == @current_user %>
+
+  <% elsif @the_follow_request == nil %>
+  <form action="/insert_follow_request"  method="post" > 
+    <input type="hidden" id="query_recipient_id" name="query_recipient_id" value="<%= @user.id %>" >
+    <input type="hidden" id="query_sender_id" name="query_sender_id" value="<%= @current_user%>" >
+    <input type="hidden" id="query_status" name="query_status" value="TRUE" >
+
+    <button> Follow </button>
+  </form>
+  <% else %>
+    <a href="/delete_follow_request/<%= @the_follow_request.id %>"> Unfollow </a>
+  <% end %>
+
   <p> </p>
 
   <dt> <b> Pending follow requests </b> </dt>

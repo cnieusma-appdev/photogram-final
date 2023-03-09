@@ -13,4 +13,12 @@
 #  owner_id       :integer
 #
 class Photo < ApplicationRecord
+
+  ####### I added this code #######
+  # validates(:image, {presence => true})
+  ####### End code #######
+
+  has_many(:comments)
+  has_many(:likes)
+
 end
