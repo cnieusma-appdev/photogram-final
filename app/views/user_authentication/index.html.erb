@@ -69,9 +69,13 @@
             No
           <% end %>
         </td>
-
         <td>
-          Follow
+          <form action="/insert_follow_request"  method="post" > 
+            <input type="hidden" id="query_recipient_id" name="query_recipient_id" value="<%= user.id %>" >
+            <input type="hidden" id="query_sender_id" name="query_sender_id" value="<%= @current_user%>" >
+            <input type="hidden" id="query_status" name="query_status" value="true" >
+            <button> Follow </button>
+          </form>
         </td>
 
         <td>

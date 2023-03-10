@@ -13,7 +13,7 @@
   <form action="/insert_follow_request"  method="post" > 
     <input type="hidden" id="query_recipient_id" name="query_recipient_id" value="<%= @user.id %>" >
     <input type="hidden" id="query_sender_id" name="query_sender_id" value="<%= @current_user%>" >
-    <input type="hidden" id="query_status" name="query_status" value="TRUE" >
+    <input type="hidden" id="query_status" name="query_status" value="true" >
 
     <button> Follow </button>
   </form>
@@ -66,36 +66,47 @@
   </ul>
 
 <%# UNCOMMENT BOTTOM LINE LATER %>
-<h2> Own photos PLACEHOLDER! </h2> 
-<%# <h2>Own photos (<%= @user.own_photos.count %>) <%#</h2> %>
+<h2> Own photos (<%= @user.own_photos.size %>) </h2>
 
 <table border="1">
-  <tr>
-    <th>
-      Image
-    </th>
-
-    <th>
-      Owner
-    </th>
-
-    <th>
-      Caption
-    </th>
-
-    <th>
-      Posted
-    </th>
-
-     <th>
-      Likes
-    </th>
-
-    <th></th>
-  </tr>
-
-
-<%# ADD CODE FROM OLD PHOTOGRAM SHOW.HTML %>
-  
-
-</table>
+      <tr>
+        <th>
+          Image
+        </th>
+        <th>
+          Owner
+        </th>
+        <th>
+          Caption
+        </th>
+        <th>
+          Posted
+        </th>
+        <th>
+          Likes
+        </th>
+        <th></th>
+      </tr>
+    <% @users_photos.each do |photo| %>
+      <tr>
+        <td>
+          <img src="<%= photo.image %>" class="img-responsive">
+        </td>
+        <td>
+          <%= User.where({:id => photo.owner_id}).at(0).username %>
+        </td>
+        <td>
+          <%= photo.caption %>
+        </td>
+        <td>
+          <%= photo.created_at %>
+        </td>
+        <td>
+          <%= photo.likes_count %>
+        </td>
+        <td>
+          <a href="/photos/<%= photo.id %>"> Show details </a>
+        </td>
+      </tr>
+  <% end %>
+  <table>

@@ -20,5 +20,13 @@ class User < ApplicationRecord
   has_many(:photos)
   has_many(:follow_requests)
 
+  def own_photos
+    my_id = self.id
+
+    matching_photos = Photo.where({ :owner_id => my_id })
+
+    return matching_photos
+  end
+
   
 end

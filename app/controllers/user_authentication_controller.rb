@@ -5,6 +5,9 @@ class UserAuthenticationController < ApplicationController
   ########## I added this code ##########
   def index
     @users = User.all.order({ :username => :asc })
+    
+    @current_user = session.fetch(:user_id)
+
 
     render({ :template => "user_authentication/index.html.erb" })
   end
@@ -14,15 +17,17 @@ class UserAuthenticationController < ApplicationController
     @user = User.where({ :username => the_username }).at(0)
     @current_user = session.fetch(:user_id)
 
-    all_follow_requests = FollowRequest.where({:recipient_id => @user.id, :status => "TRUE"})
+    all_follow_requests = FollowRequest.where({:recipient_id => @user.id, :status => "true"})
     @follower_count = all_follow_requests.count
 
-    all_following_requests = FollowRequest.where({:sender_id => @user.id, :status => "TRUE"})
+    all_following_requests = FollowRequest.where({:sender_id => @user.id, :status => "true"})
     @following_count = all_following_requests.count
 
-    @matching_follow_requests = FollowRequest.where({ :recipient_id => @user.id, :sender_id => @signed_in_user, :status => "TRUE"})
+    @matching_follow_requests = FollowRequest.where({ :recipient_id => @user.id, :sender_id => @signed_in_user, :status => "true"})
 
     @the_follow_request = @matching_follow_requests.at(0)
+
+    @users_photos = Photo.where({:owner_id => @user.id})
 
     render({ :template => "user_authentication/show.html.erb" })
   end
