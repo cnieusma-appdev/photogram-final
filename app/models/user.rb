@@ -28,6 +28,44 @@ class User < ApplicationRecord
     return matching_photos
   end
 
+  def likes
+    my_id = self.id
+
+    matching_likes = Like.where({ :fan_id => my_id })
+
+    return matching_likes
+  end
+
+  def liked_photos
+    my_likes = self.likes
+    
+    array_of_photo_ids = Array.new
+
+    my_likes.each do |a_like|
+      array_of_photo_ids.push(a_like.photo_id)
+    end
+
+    matching_photos = Photo.where({ :id => array_of_photo_ids })
+
+    return matching_photos
+  end
+
+  def commented_photos
+    my_comments = self.comments
+    
+    array_of_photo_ids = Array.new
+
+    my_comments.each do |a_comment|
+      array_of_photo_ids.push(a_comment.photo_id)
+    end
+
+    matching_photos = Photo.where({ :id => array_of_photo_ids })
+
+    unique_matching_photos = matching_photos.distinct
+
+    return unique_matching_photos
+  end
+
   def sent_follow_requests
     my_id = self.id
 
@@ -106,5 +144,22 @@ class User < ApplicationRecord
     return matching_photos
   end
 
+  def discover
+    array_of_photo_ids = Array.new
+
+    my_leaders = self.leaders
+    
+    my_leaders.each do |a_user|
+      leader_liked_photos = a_user.liked_photos
+
+      leader_liked_photos.each do |a_photo|
+        array_of_photo_ids.push(a_photo.id)
+      end
+    end
+
+    matching_photos = Photo.where({ :id => array_of_photo_ids })
+
+    return matching_photos
+  end
   
 end

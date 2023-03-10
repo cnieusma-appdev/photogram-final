@@ -73,6 +73,48 @@ class UserAuthenticationController < ApplicationController
     render({ :template => "user_authentication/show_feed.html.erb" })
   end
 
+  def show_discover
+    the_username = params.fetch("the_username")
+    @user = User.where({ :username => the_username }).at(0)
+    @current_user = session.fetch(:user_id)
+
+    all_follow_requests = FollowRequest.where({:recipient_id => @user.id, :status => "true"})
+    @follower_count = all_follow_requests.count
+
+    all_following_requests = FollowRequest.where({:sender_id => @user.id, :status => "true"})
+    @following_count = all_following_requests.count
+
+    @matching_follow_requests = FollowRequest.where({ :recipient_id => @user.id, :sender_id => @signed_in_user, :status => "true"})
+    @the_follow_request = @matching_follow_requests.at(0)
+
+    @matching_followers = @user.followers
+
+    @users_photos = Photo.where({:owner_id => @user.id})
+    
+    render({ :template => "user_authentication/show_discover.html.erb" })
+  end
+
+  def show_liked_photos
+    the_username = params.fetch("the_username")
+    @user = User.where({ :username => the_username }).at(0)
+    @current_user = session.fetch(:user_id)
+
+    all_follow_requests = FollowRequest.where({:recipient_id => @user.id, :status => "true"})
+    @follower_count = all_follow_requests.count
+
+    all_following_requests = FollowRequest.where({:sender_id => @user.id, :status => "true"})
+    @following_count = all_following_requests.count
+
+    @matching_follow_requests = FollowRequest.where({ :recipient_id => @user.id, :sender_id => @signed_in_user, :status => "true"})
+    @the_follow_request = @matching_follow_requests.at(0)
+
+    @matching_followers = @user.followers
+
+    @users_photos = Photo.where({:owner_id => @user.id})
+    
+    render({ :template => "user_authentication/show_liked_photos.html.erb" })
+  end
+
   ########## End new code ##########
 
   def sign_in_form
