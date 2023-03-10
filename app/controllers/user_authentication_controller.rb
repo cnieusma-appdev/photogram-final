@@ -8,7 +8,6 @@ class UserAuthenticationController < ApplicationController
     
     @current_user = session.fetch(:user_id)
 
-
     render({ :template => "user_authentication/index.html.erb" })
   end
 

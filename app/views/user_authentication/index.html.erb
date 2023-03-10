@@ -70,12 +70,20 @@
           <% end %>
         </td>
         <td>
+
+          <% @matching_follow_requests = FollowRequest.where({ :recipient_id => user.id, :sender_id => @current_user, :status => "true"}) %>
+          <% @the_follow_request = @matching_follow_requests.at(0) %>
+
+          <% if @the_follow_request == nil %>
           <form action="/insert_follow_request"  method="post" > 
             <input type="hidden" id="query_recipient_id" name="query_recipient_id" value="<%= user.id %>" >
             <input type="hidden" id="query_sender_id" name="query_sender_id" value="<%= @current_user%>" >
             <input type="hidden" id="query_status" name="query_status" value="true" >
             <button> Follow </button>
           </form>
+          <% else %>
+                <a href="/delete_follow_request/<%= @the_follow_request.id %>"> Unfollow </a>
+              <% end %>
         </td>
 
         <td>
