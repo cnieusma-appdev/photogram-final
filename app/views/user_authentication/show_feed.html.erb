@@ -66,7 +66,7 @@
   </ul>
 
 <%# UNCOMMENT BOTTOM LINE LATER %>
-<h2> Own photos (<%= @user.own_photos.size %>) </h2>
+<h2> Feed (<%= @user.feed.size %>) </h2>
 
 <table border="1">
       <tr>
@@ -87,7 +87,7 @@
         </th>
         <th></th>
       </tr>
-    <% @users_photos.each do |photo| %>
+    <% @user.feed.each do |photo| %>
       <tr>
         <td>
           <img src="<%= photo.image %>" class="img-responsive">
